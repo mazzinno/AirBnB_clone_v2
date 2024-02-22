@@ -50,14 +50,6 @@ class DBStorage:
                     new_dict[key] = obj
         return (new_dict)
 
-    def new(self, obj):
-        """(new words) add the object to the current database session"""
-        self.__session.add(obj)
-
-    def save(self):
-        """this method saves all changes for current database session"""
-        self.__session.commit()
-
     def delete(self, obj=None):
         """deletes from current database session obj if not none"""
         if obj is not None:
@@ -69,6 +61,14 @@ class DBStorage:
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sess_factory)
         self.__session = Session
+
+    def new(self, obj):
+        """(new words) add the object to the current database session"""
+        self.__session.add(obj)
+
+    def save(self):
+        """this method saves all changes for current database session"""
+        self.__session.commit()
 
     def close(self):
         """calls dd remove method on d private session attribute."""
