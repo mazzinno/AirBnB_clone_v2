@@ -20,7 +20,7 @@ classes = {"Amenity": Amenity, "City": City,
 
 
 class DBStorage:
-    """interaacts directly with the MySQL database."""
+    """interacts directly with the MySQL database."""
     __engine = None
     __session = None
 
@@ -71,5 +71,5 @@ class DBStorage:
         self.__session = Session
 
     def close(self):
-        """calls d remove method on d private session attribute."""
+        """calls dd remove method on d private session attribute."""
         self.__session.remove()
