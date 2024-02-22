@@ -10,11 +10,13 @@ from models import city
 from models.base_model import BaseModel
 import pep8
 import unittest
+
 City = city.City
 
 
 class TestCityDocs(unittest.TestCase):
     """Tests to check the documentation and style of City class"""
+
     @classmethod
     def setUpClass(cls):
         """Set up for the doc tests"""
@@ -59,56 +61,59 @@ class TestCityDocs(unittest.TestCase):
 
 class TestCity(unittest.TestCase):
     """Test the City class"""
+
+    def setUp(self):
+        """Set up a City instance for each test"""
+        self.city = City()
+
     def test_is_subclass(self):
         """Test that City is a subclass of BaseModel"""
-        city = City()
-        self.assertIsInstance(city, BaseModel)
-        self.assertTrue(hasattr(city, "id"))
-        self.assertTrue(hasattr(city, "created_at"))
-        self.assertTrue(hasattr(city, "updated_at"))
+        self.assertIsInstance(self.city, BaseModel)
+        self.assertTrue(hasattr(self.city, "id"))
+        self.assertTrue(hasattr(self.city, "created_at"))
+        self.assertTrue(hasattr(self.city, "updated_at"))
 
     def test_name_attr(self):
         """Test that City has attribute name, and it's an empty string"""
-        city = City()
-        self.assertTrue(hasattr(city, "name"))
+        self.assertTrue(hasattr(self.city, "name"))
         if models.storage_t == 'db':
-            self.assertEqual(city.name, None)
+            self.assertIsNone(self.city.name)
         else:
-            self.assertEqual(city.name, "")
+            self.assertEqual(self.city.name, "")
 
     def test_state_id_attr(self):
         """Test that City has attribute state_id, and it's an empty string"""
-        city = City()
-        self.assertTrue(hasattr(city, "state_id"))
+        self.assertTrue(hasattr(self.city, "state_id"))
         if models.storage_t == 'db':
-            self.assertEqual(city.state_id, None)
+            self.assertIsNone(self.city.state_id)
         else:
-            self.assertEqual(city.state_id, "")
+            self.assertEqual(self.city.state_id, "")
 
     def test_to_dict_creates_dict(self):
-        """test to_dict method creates a dictionary with proper attrs"""
-        c = City()
-        new_d = c.to_dict()
-        self.assertEqual(type(new_d), dict)
-        self.assertFalse("_sa_instance_state" in new_d)
-        for attr in c.__dict__:
+        """Test to_dict method creates a dictionary with proper attrs"""
+        new_d = self.city.to_dict()
+        self.assertIsInstance(new_d, dict)
+        self.assertNotIn("_sa_instance_state", new_d)
+        for attr in self.city.__dict__:
             if attr is not "_sa_instance_state":
                 self.assertTrue(attr in new_d)
         self.assertTrue("__class__" in new_d)
 
     def test_to_dict_values(self):
-        """test that values in dict returned from to_dict are correct"""
+        """Test that values in dict returned from to_dict are correct"""
         t_format = "%Y-%m-%dT%H:%M:%S.%f"
-        c = City()
-        new_d = c.to_dict()
+        new_d = self.city.to_dict()
         self.assertEqual(new_d["__class__"], "City")
-        self.assertEqual(type(new_d["created_at"]), str)
-        self.assertEqual(type(new_d["updated_at"]), str)
-        self.assertEqual(new_d["created_at"], c.created_at.strftime(t_format))
-        self.assertEqual(new_d["updated_at"], c.updated_at.strftime(t_format))
+        self.assertIsInstance(new_d["created_at"], str)
+        self.assertIsInstance(new_d["updated_at"], str)
+        self.assertEqual(new_d["created_at"], self.city.created_at.strftime(t_format))
+        self.assertEqual(new_d["updated_at"], self.city.updated_at.strftime(t_format))
 
     def test_str(self):
-        """test that the str method has the correct output"""
-        city = City()
-        string = "[City] ({}) {}".format(city.id, city.__dict__)
-        self.assertEqual(string, str(city))
+        """Test that the str method has the correct output"""
+        string = "[City] ({}) {}".format(self.city.id, self.city.__dict__)
+        self.assertEqual(string, str(self.city))
+
+
+if __name__ == "__main__":
+    unittest.main()
