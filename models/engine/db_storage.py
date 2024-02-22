@@ -20,7 +20,7 @@ classes = {"Amenity": Amenity, "City": City,
 
 
 class DBStorage:
-    """interaacts directly with the MySQL database."""
+    """interacts directly with the MySQL database."""
     __engine = None
     __session = None
 
