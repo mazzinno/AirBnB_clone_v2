@@ -9,7 +9,7 @@ from os import path
 
 env.hosts = ['100.26.237.194', '34.239.255.112']
 env.user = 'ubuntu'
-env.key_filename = '~/.ssh/id_rsa'
+env.key_filename = '/home/id_rsa'
 
 
 def do_pack():
@@ -69,3 +69,13 @@ web_static_{timestamp}/ /data/web_static/current')
 
     # return True
     return True
+
+def deploy():
+    """
+    Create and distribute an archive to a web server.
+    """
+    file = do_pack()
+    if file is None:
+        return False
+    return do_deploy(file)
+
