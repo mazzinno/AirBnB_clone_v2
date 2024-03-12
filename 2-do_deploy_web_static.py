@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Deploy web files to server
+Deploy web files to server.
 """
 from fabric.api import *
 from datetime import datetime
@@ -14,8 +14,8 @@ env.key_filename = '/home/id_rsa'
 
 def do_pack():
     """
-    script that generates a .tgz archive from the
-    contents of the web_static folder
+    script that generates a .tgz archive from
+    contents of the web_static folder.
     """
     file_name = strftime("%Y%m%d%H%M%S")
     try:
@@ -35,15 +35,12 @@ def do_deploy(archive_path):
         if not (path.exists(archive_path)):
             return False
 
-        # upload archive to server
         put(archive_path, '/tmp/')
 
-        # create target dir
         timestamp = archive_path[-18:-4]
         run(f'sudo mkdir -p /data/web_static/\
 releases/web_static_{timestamp}/')
 
-        # uncompress archive and delete .tgz
         run(f'sudo tar -xzf /tmp/web_static_{timestamp}.tgz -C \
 /data/web_static/releases/web_static_{timestamp}/')
 
