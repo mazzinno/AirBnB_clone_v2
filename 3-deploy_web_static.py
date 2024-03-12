@@ -70,6 +70,7 @@ web_static_{timestamp}/ /data/web_static/current')
     # return True
     return True
 
+
 def deploy():
     """
     Create and distribute an archive to a web server.
