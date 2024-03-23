@@ -14,7 +14,7 @@ def index():
 
 
 @app.route('/hbnb', strict_slashes=False)
-def index():
+def hbnb():
     """returns HBNB!"""
     return 'HBNB'
 
