@@ -27,9 +27,9 @@ def hbnbtext(text):
 
 
 @app.route('/python/<text>', strict_slashes=False)
-def pythontext(text):
+def pythontext(text='is cool'):
     """returns HBNB!"""
-    processed_text = text.replace('_', ' ')
+    processed_text = text.replace('_', ' ') 
     return f'Python {processed_text}'
 
 
