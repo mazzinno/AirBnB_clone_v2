@@ -26,11 +26,12 @@ def hbnbtext(text):
     return f'C {processed_text}'
 
 
+@app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def pythontext(text='is cool'):
-    """returns HBNB!"""
-    processed_text = text.replace('_', ' ') 
-    return f'Python {processed_text}'
+def python(text='is cool'):
+    '''function that print text variable'''
+    new_text = text.replace('_', ' ')
+    return f'Python {new_text}'
 
 
 if __name__ == '__main__':
