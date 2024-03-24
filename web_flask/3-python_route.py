@@ -26,5 +26,12 @@ def hbnbtext(text):
     return f'C {processed_text}'
 
 
+@app.route('/python/<text>', strict_slashes=False)
+def pythontext(text):
+    """returns HBNB!"""
+    processed_text = text.replace('_', ' ')
+    return f'Python {processed_text}'
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
